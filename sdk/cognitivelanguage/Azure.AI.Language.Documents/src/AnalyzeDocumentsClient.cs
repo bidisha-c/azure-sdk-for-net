@@ -10,21 +10,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core.Pipeline;
 
-namespace Azure.AI.Language.Text
+namespace Azure.AI.Language.Documents
 {
     /// <summary> The language service API is a suite of natural language processing (NLP) skills built with best-in-class Microsoft machine learning algorithms.  The API can be used to analyze unstructured text for tasks such as sentiment analysis, key phrase extraction, language detection and question answering. Further documentation can be found in &lt;a href=\"https://docs.microsoft.com/azure/cognitive-services/language-service/overview\"&gt;https://docs.microsoft.com/azure/cognitive-services/language-service/overview&lt;/a&gt;.0. </summary>
-    public partial class TextAnalysisClient
+    public partial class AnalyzeDocumentsClient
     {
         /// <summary> Initializes a new instance of TextAnalysisClient. </summary>
         /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.cognitiveservices.azure.com). </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public TextAnalysisClient(Uri endpoint, TokenCredential credential, TextAnalysisClientOptions options)
+        public AnalyzeDocumentsClient(Uri endpoint, TokenCredential credential, AnalyzeDocumentsClientOptions options)
         {
             Argument.AssertNotNull(endpoint, nameof(endpoint));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new TextAnalysisClientOptions();
+            options ??= new AnalyzeDocumentsClientOptions();
 
             var authorizationScope = $"{(string.IsNullOrEmpty(options.Audience?.ToString()) ? TextAudience.AzurePublicCloud : options.Audience)}/.default";
 
@@ -48,7 +48,7 @@ namespace Azure.AI.Language.Text
             Argument.AssertNotNull(textInput, nameof(textInput));
             Argument.AssertNotNull(actions, nameof(actions));
 
-            string scopeName = $"{nameof(TextAnalysisClient)}.{nameof(AnalyzeTextOperation)}";
+            string scopeName = $"{nameof(AnalyzeDocumentsClient)}.{nameof(AnalyzeTextOperation)}";
             using var scope = ClientDiagnostics.CreateScope(scopeName);
             scope.Start();
 
@@ -81,7 +81,7 @@ namespace Azure.AI.Language.Text
             Argument.AssertNotNull(textInput, nameof(textInput));
             Argument.AssertNotNull(actions, nameof(actions));
 
-            string scopeName = $"{nameof(TextAnalysisClient)}.{nameof(AnalyzeTextOperation)}";
+            string scopeName = $"{nameof(AnalyzeDocumentsClient)}.{nameof(AnalyzeTextOperation)}";
             using var scope = ClientDiagnostics.CreateScope(scopeName);
             scope.Start();
 

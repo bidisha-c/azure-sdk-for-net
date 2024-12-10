@@ -31,7 +31,7 @@ namespace Azure.AI.Language.Text.Tests
         /// <summary>
         /// Gets an instrumented client of type <typeparamref name="TClient"/>.
         /// </summary>
-        protected TextAnalysisClient client { get; private set; }
+        protected AnalyzeDocumentsClient client { get; private set; }
 
         /// <summary>
         /// Gets the service version used for this instance of the test fixture.
@@ -46,7 +46,7 @@ namespace Azure.AI.Language.Text.Tests
             await base.StartTestRecordingAsync();
 
             TextAnalysisClientOptions options = new(ServiceVersion);
-            client = CreateClient<TextAnalysisClient>(
+            client = CreateClient<AnalyzeDocumentsClient>(
                 TestEnvironment.Endpoint,
                 new AzureKeyCredential(TestEnvironment.ApiKey),
                 InstrumentClientOptions(options));
