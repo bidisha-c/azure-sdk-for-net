@@ -4,9 +4,9 @@
 using System;
 using Azure.Core.TestFramework;
 
-namespace Azure.AI.Language.Text.Tests
+namespace Azure.AI.Language.Documents.Tests
 {
-    public class TextAnalysisClientTestEnvironment : TestEnvironment
+    public class DocumentAnalysisClientTestEnvironment : TestEnvironment
     {
         public Uri Endpoint => new(GetRecordedVariable("AZURE_TEXT_ENDPOINT"));
 

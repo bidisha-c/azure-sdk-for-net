@@ -7,9 +7,9 @@ This sample shows how to call GetAnalyzeDocumentsJobStatusAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<endpoint>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
-AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
-Response<AnalyzeDocumentsJobState> response = await client.GetAnalyzeDocumentsJobStatusAsync(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
+Response<AnalyzeDocumentsOperationState> response = await client.GetAnalyzeDocumentsJobStatusAsync(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
 ]]></code></example>
     </member>
     <member name="GetAnalyzeDocumentsJobStatus(Guid,bool?,int?,int?,CancellationToken)">
@@ -18,9 +18,9 @@ This sample shows how to call GetAnalyzeDocumentsJobStatus.
 <code><![CDATA[
 Uri endpoint = new Uri("<endpoint>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
-AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
-Response<AnalyzeDocumentsJobState> response = client.GetAnalyzeDocumentsJobStatus(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
+Response<AnalyzeDocumentsOperationState> response = client.GetAnalyzeDocumentsJobStatus(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
 ]]></code></example>
     </member>
     <member name="GetAnalyzeDocumentsJobStatusAsync(Guid,bool?,int?,int?,RequestContext)">
@@ -29,7 +29,7 @@ This sample shows how to call GetAnalyzeDocumentsJobStatusAsync and parse the re
 <code><![CDATA[
 Uri endpoint = new Uri("<endpoint>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
-AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
 Response response = await client.GetAnalyzeDocumentsJobStatusAsync(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"), null, null, null, null);
 
@@ -50,7 +50,7 @@ This sample shows how to call GetAnalyzeDocumentsJobStatus and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<endpoint>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
-AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
 Response response = client.GetAnalyzeDocumentsJobStatus(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"), null, null, null, null);
 
@@ -71,7 +71,7 @@ This sample shows how to call AnalyzeDocumentsSubmitOperationAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<endpoint>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
-AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
 AnalyzeDocumentsOperationInput analyzeDocumentOperationInput = new AnalyzeDocumentsOperationInput(new MultiLanguageDocumentInput
 {
@@ -81,7 +81,7 @@ AnalyzeDocumentsOperationInput analyzeDocumentOperationInput = new AnalyzeDocume
     }},
 }, new AnalyzeDocumentsOperationAction[]
 {
-    new PiiLROTask
+    new PiiEntityRecognitionOperationAction
     {
         Parameters = new PiiActionContent
         {
@@ -103,7 +103,7 @@ This sample shows how to call AnalyzeDocumentsSubmitOperation.
 <code><![CDATA[
 Uri endpoint = new Uri("<endpoint>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
-AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
 AnalyzeDocumentsOperationInput analyzeDocumentOperationInput = new AnalyzeDocumentsOperationInput(new MultiLanguageDocumentInput
 {
@@ -113,7 +113,7 @@ AnalyzeDocumentsOperationInput analyzeDocumentOperationInput = new AnalyzeDocume
     }},
 }, new AnalyzeDocumentsOperationAction[]
 {
-    new PiiLROTask
+    new PiiEntityRecognitionOperationAction
     {
         Parameters = new PiiActionContent
         {
@@ -135,7 +135,7 @@ This sample shows how to call AnalyzeDocumentsSubmitOperationAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<endpoint>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
-AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
@@ -191,7 +191,7 @@ This sample shows how to call AnalyzeDocumentsSubmitOperation.
 <code><![CDATA[
 Uri endpoint = new Uri("<endpoint>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
-AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
@@ -247,7 +247,7 @@ This sample shows how to call AnalyzeDocumentsCancelOperationAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<endpoint>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
-AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
 Operation operation = await client.AnalyzeDocumentsCancelOperationAsync(WaitUntil.Completed, Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
 ]]></code></example>
@@ -258,7 +258,7 @@ This sample shows how to call AnalyzeDocumentsCancelOperation.
 <code><![CDATA[
 Uri endpoint = new Uri("<endpoint>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
-AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
 Operation operation = client.AnalyzeDocumentsCancelOperation(WaitUntil.Completed, Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
 ]]></code></example>

@@ -6,7 +6,7 @@ using Azure.Core;
 namespace Azure.AI.Language.Documents
 {
     [CodeGenModel("AILanguageDocumentsClientBuilderExtensions")]
-    public static partial class LanguageDocumentsClientBuilderExtensions
+    public static partial class DocumentAnalysisClientBuilderExtensions
     {
     }
 }

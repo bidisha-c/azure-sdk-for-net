@@ -12,10 +12,10 @@ namespace Azure.AI.Language.Documents
 {
     /// <summary>
     /// Contains the AnalyzeDocuments long running operation result object.
-    /// Please note <see cref="AnalyzeDocumentsLROResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+    /// Please note <see cref="AnalyzeDocumentsOperationResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
     /// The available derived classes include <see cref="AbstractiveSummarizationOperationResult"/>, <see cref="ExtractiveSummarizationOperationResult"/> and <see cref="PiiEntityRecognitionOperationResult"/>.
     /// </summary>
-    public abstract partial class AnalyzeDocumentsLROResult
+    public abstract partial class AnalyzeDocumentsOperationResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -49,22 +49,22 @@ namespace Azure.AI.Language.Documents
         /// </summary>
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsLROResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsOperationResult"/>. </summary>
         /// <param name="lastUpdateDateTime"> The last updated time in UTC for the task. </param>
         /// <param name="status"> The status of the task at the mentioned last update time. </param>
-        protected AnalyzeDocumentsLROResult(DateTimeOffset lastUpdateDateTime, DocumentActionState status)
+        protected AnalyzeDocumentsOperationResult(DateTimeOffset lastUpdateDateTime, DocumentActionState status)
         {
             LastUpdateDateTime = lastUpdateDateTime;
             Status = status;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsLROResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsOperationResult"/>. </summary>
         /// <param name="lastUpdateDateTime"> The last updated time in UTC for the task. </param>
         /// <param name="status"> The status of the task at the mentioned last update time. </param>
         /// <param name="taskName"> task name. </param>
         /// <param name="kind"> Kind of the task. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AnalyzeDocumentsLROResult(DateTimeOffset lastUpdateDateTime, DocumentActionState status, string taskName, AnalyzeDocumentsOperationResultsKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AnalyzeDocumentsOperationResult(DateTimeOffset lastUpdateDateTime, DocumentActionState status, string taskName, AnalyzeDocumentsOperationResultsKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             LastUpdateDateTime = lastUpdateDateTime;
             Status = status;
@@ -73,8 +73,8 @@ namespace Azure.AI.Language.Documents
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsLROResult"/> for deserialization. </summary>
-        internal AnalyzeDocumentsLROResult()
+        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsOperationResult"/> for deserialization. </summary>
+        internal AnalyzeDocumentsOperationResult()
         {
         }
 

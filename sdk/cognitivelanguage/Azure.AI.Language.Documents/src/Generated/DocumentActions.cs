@@ -56,7 +56,7 @@ namespace Azure.AI.Language.Documents
             Failed = failed;
             InProgress = inProgress;
             Total = total;
-            Items = new ChangeTrackingList<AnalyzeDocumentsLROResult>();
+            Items = new ChangeTrackingList<AnalyzeDocumentsOperationResult>();
         }
 
         /// <summary> Initializes a new instance of <see cref="DocumentActions"/>. </summary>
@@ -66,11 +66,11 @@ namespace Azure.AI.Language.Documents
         /// <param name="total"> Count of total tasks. </param>
         /// <param name="items">
         /// Enumerable of Analyze documents job results.
-        /// Please note <see cref="AnalyzeDocumentsLROResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// Please note <see cref="AnalyzeDocumentsOperationResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="AbstractiveSummarizationOperationResult"/>, <see cref="ExtractiveSummarizationOperationResult"/> and <see cref="PiiEntityRecognitionOperationResult"/>.
         /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DocumentActions(int completed, int failed, int inProgress, int total, IReadOnlyList<AnalyzeDocumentsLROResult> items, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DocumentActions(int completed, int failed, int inProgress, int total, IReadOnlyList<AnalyzeDocumentsOperationResult> items, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Completed = completed;
             Failed = failed;
@@ -95,9 +95,9 @@ namespace Azure.AI.Language.Documents
         public int Total { get; }
         /// <summary>
         /// Enumerable of Analyze documents job results.
-        /// Please note <see cref="AnalyzeDocumentsLROResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// Please note <see cref="AnalyzeDocumentsOperationResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="AbstractiveSummarizationOperationResult"/>, <see cref="ExtractiveSummarizationOperationResult"/> and <see cref="PiiEntityRecognitionOperationResult"/>.
         /// </summary>
-        public IReadOnlyList<AnalyzeDocumentsLROResult> Items { get; }
+        public IReadOnlyList<AnalyzeDocumentsOperationResult> Items { get; }
     }
 }

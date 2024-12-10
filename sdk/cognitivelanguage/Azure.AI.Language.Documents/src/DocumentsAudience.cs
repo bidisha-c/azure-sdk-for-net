@@ -4,20 +4,20 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.AI.Language.Text
+namespace Azure.AI.Language.Documents
 {
     /// <summary> Cloud audiences available for Text. </summary>
-    internal readonly partial struct TextAudience : IEquatable<TextAudience>
+    internal readonly partial struct DocumentsAudience : IEquatable<DocumentsAudience>
     {
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextAudience"/> object.
+        /// Initializes a new instance of the <see cref="DocumentsAudience"/> object.
         /// </summary>
         /// <param name="value">The Azure Active Directory audience to use when forming authorization scopes.For the Language service, this value corresponds to a URL that identifies the Azure cloud where the resource is located. For more information: <see href="https://learn.microsoft.com/azure/azure-government/documentation-government-cognitiveservices" />.</param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         /// <remarks>Please use one of the constant members over creating a custom value unless you have special needs for doing so.</remarks>
-        public TextAudience(string value)
+        public DocumentsAudience(string value)
         {
             Argument.AssertNotNullOrEmpty(value, nameof(value));
             _value = value;
@@ -28,26 +28,26 @@ namespace Azure.AI.Language.Text
         private const string AzurePublicCloudValue = "https://cognitiveservices.azure.com";
 
         /// <summary> Azure China. </summary>
-        public static TextAudience AzureChina { get; } = new TextAudience(AzureChinaValue);
+        public static DocumentsAudience AzureChina { get; } = new DocumentsAudience(AzureChinaValue);
 
         /// <summary> Azure Government. </summary>
-        public static TextAudience AzureGovernment { get; } = new TextAudience(AzureGovernmentValue);
+        public static DocumentsAudience AzureGovernment { get; } = new DocumentsAudience(AzureGovernmentValue);
 
         /// <summary> Azure Public Cloud. </summary>
-        public static TextAudience AzurePublicCloud { get; } = new TextAudience(AzurePublicCloudValue);
+        public static DocumentsAudience AzurePublicCloud { get; } = new DocumentsAudience(AzurePublicCloudValue);
 
-        /// <summary> Determines if two <see cref="TextAudience"/> values are the same. </summary>
-        public static bool operator ==(TextAudience left, TextAudience right) => left.Equals(right);
-        /// <summary> Determines if two <see cref="TextAudience"/> values are not the same. </summary>
-        public static bool operator !=(TextAudience left, TextAudience right) => !left.Equals(right);
-        /// <summary> Converts a string to a <see cref="TextAudience"/>. </summary>
-        public static implicit operator TextAudience(string value) => new TextAudience(value);
+        /// <summary> Determines if two <see cref="DocumentsAudience"/> values are the same. </summary>
+        public static bool operator ==(DocumentsAudience left, DocumentsAudience right) => left.Equals(right);
+        /// <summary> Determines if two <see cref="DocumentsAudience"/> values are not the same. </summary>
+        public static bool operator !=(DocumentsAudience left, DocumentsAudience right) => !left.Equals(right);
+        /// <summary> Converts a string to a <see cref="DocumentsAudience"/>. </summary>
+        public static implicit operator DocumentsAudience(string value) => new DocumentsAudience(value);
 
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object obj) => obj is TextAudience other && Equals(other);
+        public override bool Equals(object obj) => obj is DocumentsAudience other && Equals(other);
         /// <inheritdoc />
-        public bool Equals(TextAudience other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
+        public bool Equals(DocumentsAudience other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]

@@ -19,10 +19,12 @@ namespace Azure.AI.Language.Documents
     /// The API can be used to analyze unstructured text for tasks such as sentiment analysis, key phrase extraction, language detection and question answering.
     /// Further documentation can be found in &lt;a href=\"https://docs.microsoft.com/azure/cognitive-services/language-service/overview\"&gt;https://docs.microsoft.com/azure/cognitive-services/language-service/overview&lt;/a&gt;.0
     /// </summary>
-    public partial class AnalyzeDocumentsClient
+    public partial class DocumentAnalysisClient
     {
         private const string AuthorizationHeader = "Ocp-Apim-Subscription-Key";
         private readonly AzureKeyCredential _keyCredential;
+        private static readonly string[] AuthorizationScopes = new string[] { "https://cognitiveservices.azure.com/.default" };
+        private readonly TokenCredential _tokenCredential;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
@@ -33,29 +35,37 @@ namespace Azure.AI.Language.Documents
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
         public virtual HttpPipeline Pipeline => _pipeline;
 
-        /// <summary> Initializes a new instance of AnalyzeDocumentsClient for mocking. </summary>
-        protected AnalyzeDocumentsClient()
+        /// <summary> Initializes a new instance of DocumentAnalysisClient for mocking. </summary>
+        protected DocumentAnalysisClient()
         {
         }
 
-        /// <summary> Initializes a new instance of AnalyzeDocumentsClient. </summary>
+        /// <summary> Initializes a new instance of DocumentAnalysisClient. </summary>
         /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public AnalyzeDocumentsClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new AnalyzeDocumentsClientOptions())
+        public DocumentAnalysisClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new DocumentAnalysisClientOptions())
         {
         }
 
-        /// <summary> Initializes a new instance of AnalyzeDocumentsClient. </summary>
+        /// <summary> Initializes a new instance of DocumentAnalysisClient. </summary>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public DocumentAnalysisClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new DocumentAnalysisClientOptions())
+        {
+        }
+
+        /// <summary> Initializes a new instance of DocumentAnalysisClient. </summary>
         /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public AnalyzeDocumentsClient(Uri endpoint, AzureKeyCredential credential, AnalyzeDocumentsClientOptions options)
+        public DocumentAnalysisClient(Uri endpoint, AzureKeyCredential credential, DocumentAnalysisClientOptions options)
         {
             Argument.AssertNotNull(endpoint, nameof(endpoint));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new AnalyzeDocumentsClientOptions();
+            options ??= new DocumentAnalysisClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options, true);
             _keyCredential = credential;
@@ -71,12 +81,12 @@ namespace Azure.AI.Language.Documents
         /// <param name="skip"> An offset into the collection of the first resource to be returned. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <remarks> Get the status of a document analysis job. A job can consist of one or more tasks. After all tasks succeed, the job transitions to the succeeded state and results are available for each task. </remarks>
-        /// <include file="Docs/AnalyzeDocumentsClient.xml" path="doc/members/member[@name='GetAnalyzeDocumentsJobStatusAsync(Guid,bool?,int?,int?,CancellationToken)']/*" />
-        public virtual async Task<Response<AnalyzeDocumentsJobState>> GetAnalyzeDocumentsJobStatusAsync(Guid jobId, bool? showStats = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentAnalysisClient.xml" path="doc/members/member[@name='GetAnalyzeDocumentsJobStatusAsync(Guid,bool?,int?,int?,CancellationToken)']/*" />
+        public virtual async Task<Response<AnalyzeDocumentsOperationState>> GetAnalyzeDocumentsJobStatusAsync(Guid jobId, bool? showStats = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await GetAnalyzeDocumentsJobStatusAsync(jobId, showStats, top, skip, context).ConfigureAwait(false);
-            return Response.FromValue(AnalyzeDocumentsJobState.FromResponse(response), response);
+            return Response.FromValue(AnalyzeDocumentsOperationState.FromResponse(response), response);
         }
 
         /// <summary> Get analysis status and results. </summary>
@@ -86,12 +96,12 @@ namespace Azure.AI.Language.Documents
         /// <param name="skip"> An offset into the collection of the first resource to be returned. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <remarks> Get the status of a document analysis job. A job can consist of one or more tasks. After all tasks succeed, the job transitions to the succeeded state and results are available for each task. </remarks>
-        /// <include file="Docs/AnalyzeDocumentsClient.xml" path="doc/members/member[@name='GetAnalyzeDocumentsJobStatus(Guid,bool?,int?,int?,CancellationToken)']/*" />
-        public virtual Response<AnalyzeDocumentsJobState> GetAnalyzeDocumentsJobStatus(Guid jobId, bool? showStats = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentAnalysisClient.xml" path="doc/members/member[@name='GetAnalyzeDocumentsJobStatus(Guid,bool?,int?,int?,CancellationToken)']/*" />
+        public virtual Response<AnalyzeDocumentsOperationState> GetAnalyzeDocumentsJobStatus(Guid jobId, bool? showStats = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = GetAnalyzeDocumentsJobStatus(jobId, showStats, top, skip, context);
-            return Response.FromValue(AnalyzeDocumentsJobState.FromResponse(response), response);
+            return Response.FromValue(AnalyzeDocumentsOperationState.FromResponse(response), response);
         }
 
         /// <summary>
@@ -116,10 +126,10 @@ namespace Azure.AI.Language.Documents
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/AnalyzeDocumentsClient.xml" path="doc/members/member[@name='GetAnalyzeDocumentsJobStatusAsync(Guid,bool?,int?,int?,RequestContext)']/*" />
+        /// <include file="Docs/DocumentAnalysisClient.xml" path="doc/members/member[@name='GetAnalyzeDocumentsJobStatusAsync(Guid,bool?,int?,int?,RequestContext)']/*" />
         public virtual async Task<Response> GetAnalyzeDocumentsJobStatusAsync(Guid jobId, bool? showStats, int? top, int? skip, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("AnalyzeDocumentsClient.GetAnalyzeDocumentsJobStatus");
+            using var scope = ClientDiagnostics.CreateScope("DocumentAnalysisClient.GetAnalyzeDocumentsJobStatus");
             scope.Start();
             try
             {
@@ -155,10 +165,10 @@ namespace Azure.AI.Language.Documents
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/AnalyzeDocumentsClient.xml" path="doc/members/member[@name='GetAnalyzeDocumentsJobStatus(Guid,bool?,int?,int?,RequestContext)']/*" />
+        /// <include file="Docs/DocumentAnalysisClient.xml" path="doc/members/member[@name='GetAnalyzeDocumentsJobStatus(Guid,bool?,int?,int?,RequestContext)']/*" />
         public virtual Response GetAnalyzeDocumentsJobStatus(Guid jobId, bool? showStats, int? top, int? skip, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("AnalyzeDocumentsClient.GetAnalyzeDocumentsJobStatus");
+            using var scope = ClientDiagnostics.CreateScope("DocumentAnalysisClient.GetAnalyzeDocumentsJobStatus");
             scope.Start();
             try
             {
@@ -177,7 +187,7 @@ namespace Azure.AI.Language.Documents
         /// <param name="analyzeDocumentOperationInput"> The input for the analyze documents operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="analyzeDocumentOperationInput"/> is null. </exception>
-        /// <include file="Docs/AnalyzeDocumentsClient.xml" path="doc/members/member[@name='AnalyzeDocumentsSubmitOperationAsync(WaitUntil,AnalyzeDocumentsOperationInput,CancellationToken)']/*" />
+        /// <include file="Docs/DocumentAnalysisClient.xml" path="doc/members/member[@name='AnalyzeDocumentsSubmitOperationAsync(WaitUntil,AnalyzeDocumentsOperationInput,CancellationToken)']/*" />
         public virtual async Task<Operation> AnalyzeDocumentsSubmitOperationAsync(WaitUntil waitUntil, AnalyzeDocumentsOperationInput analyzeDocumentOperationInput, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(analyzeDocumentOperationInput, nameof(analyzeDocumentOperationInput));
@@ -192,7 +202,7 @@ namespace Azure.AI.Language.Documents
         /// <param name="analyzeDocumentOperationInput"> The input for the analyze documents operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="analyzeDocumentOperationInput"/> is null. </exception>
-        /// <include file="Docs/AnalyzeDocumentsClient.xml" path="doc/members/member[@name='AnalyzeDocumentsSubmitOperation(WaitUntil,AnalyzeDocumentsOperationInput,CancellationToken)']/*" />
+        /// <include file="Docs/DocumentAnalysisClient.xml" path="doc/members/member[@name='AnalyzeDocumentsSubmitOperation(WaitUntil,AnalyzeDocumentsOperationInput,CancellationToken)']/*" />
         public virtual Operation AnalyzeDocumentsSubmitOperation(WaitUntil waitUntil, AnalyzeDocumentsOperationInput analyzeDocumentOperationInput, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(analyzeDocumentOperationInput, nameof(analyzeDocumentOperationInput));
@@ -223,17 +233,17 @@ namespace Azure.AI.Language.Documents
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/AnalyzeDocumentsClient.xml" path="doc/members/member[@name='AnalyzeDocumentsSubmitOperationAsync(WaitUntil,RequestContent,RequestContext)']/*" />
+        /// <include file="Docs/DocumentAnalysisClient.xml" path="doc/members/member[@name='AnalyzeDocumentsSubmitOperationAsync(WaitUntil,RequestContent,RequestContext)']/*" />
         public virtual async Task<Operation> AnalyzeDocumentsSubmitOperationAsync(WaitUntil waitUntil, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AnalyzeDocumentsClient.AnalyzeDocumentsSubmitOperation");
+            using var scope = ClientDiagnostics.CreateScope("DocumentAnalysisClient.AnalyzeDocumentsSubmitOperation");
             scope.Start();
             try
             {
                 using HttpMessage message = CreateAnalyzeDocumentsSubmitOperationRequest(content, context);
-                return await ProtocolOperationHelpers.ProcessMessageWithoutResponseValueAsync(_pipeline, message, ClientDiagnostics, "AnalyzeDocumentsClient.AnalyzeDocumentsSubmitOperation", OperationFinalStateVia.OperationLocation, context, waitUntil).ConfigureAwait(false);
+                return await ProtocolOperationHelpers.ProcessMessageWithoutResponseValueAsync(_pipeline, message, ClientDiagnostics, "DocumentAnalysisClient.AnalyzeDocumentsSubmitOperation", OperationFinalStateVia.OperationLocation, context, waitUntil).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -263,17 +273,17 @@ namespace Azure.AI.Language.Documents
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/AnalyzeDocumentsClient.xml" path="doc/members/member[@name='AnalyzeDocumentsSubmitOperation(WaitUntil,RequestContent,RequestContext)']/*" />
+        /// <include file="Docs/DocumentAnalysisClient.xml" path="doc/members/member[@name='AnalyzeDocumentsSubmitOperation(WaitUntil,RequestContent,RequestContext)']/*" />
         public virtual Operation AnalyzeDocumentsSubmitOperation(WaitUntil waitUntil, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AnalyzeDocumentsClient.AnalyzeDocumentsSubmitOperation");
+            using var scope = ClientDiagnostics.CreateScope("DocumentAnalysisClient.AnalyzeDocumentsSubmitOperation");
             scope.Start();
             try
             {
                 using HttpMessage message = CreateAnalyzeDocumentsSubmitOperationRequest(content, context);
-                return ProtocolOperationHelpers.ProcessMessageWithoutResponseValue(_pipeline, message, ClientDiagnostics, "AnalyzeDocumentsClient.AnalyzeDocumentsSubmitOperation", OperationFinalStateVia.OperationLocation, context, waitUntil);
+                return ProtocolOperationHelpers.ProcessMessageWithoutResponseValue(_pipeline, message, ClientDiagnostics, "DocumentAnalysisClient.AnalyzeDocumentsSubmitOperation", OperationFinalStateVia.OperationLocation, context, waitUntil);
             }
             catch (Exception e)
             {
@@ -298,15 +308,15 @@ namespace Azure.AI.Language.Documents
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/AnalyzeDocumentsClient.xml" path="doc/members/member[@name='AnalyzeDocumentsCancelOperationAsync(WaitUntil,Guid,RequestContext)']/*" />
+        /// <include file="Docs/DocumentAnalysisClient.xml" path="doc/members/member[@name='AnalyzeDocumentsCancelOperationAsync(WaitUntil,Guid,RequestContext)']/*" />
         public virtual async Task<Operation> AnalyzeDocumentsCancelOperationAsync(WaitUntil waitUntil, Guid jobId, RequestContext context = null)
         {
-            using var scope = ClientDiagnostics.CreateScope("AnalyzeDocumentsClient.AnalyzeDocumentsCancelOperation");
+            using var scope = ClientDiagnostics.CreateScope("DocumentAnalysisClient.AnalyzeDocumentsCancelOperation");
             scope.Start();
             try
             {
                 using HttpMessage message = CreateAnalyzeDocumentsCancelOperationRequest(jobId, context);
-                return await ProtocolOperationHelpers.ProcessMessageWithoutResponseValueAsync(_pipeline, message, ClientDiagnostics, "AnalyzeDocumentsClient.AnalyzeDocumentsCancelOperation", OperationFinalStateVia.OperationLocation, context, waitUntil).ConfigureAwait(false);
+                return await ProtocolOperationHelpers.ProcessMessageWithoutResponseValueAsync(_pipeline, message, ClientDiagnostics, "DocumentAnalysisClient.AnalyzeDocumentsCancelOperation", OperationFinalStateVia.OperationLocation, context, waitUntil).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -331,15 +341,15 @@ namespace Azure.AI.Language.Documents
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/AnalyzeDocumentsClient.xml" path="doc/members/member[@name='AnalyzeDocumentsCancelOperation(WaitUntil,Guid,RequestContext)']/*" />
+        /// <include file="Docs/DocumentAnalysisClient.xml" path="doc/members/member[@name='AnalyzeDocumentsCancelOperation(WaitUntil,Guid,RequestContext)']/*" />
         public virtual Operation AnalyzeDocumentsCancelOperation(WaitUntil waitUntil, Guid jobId, RequestContext context = null)
         {
-            using var scope = ClientDiagnostics.CreateScope("AnalyzeDocumentsClient.AnalyzeDocumentsCancelOperation");
+            using var scope = ClientDiagnostics.CreateScope("DocumentAnalysisClient.AnalyzeDocumentsCancelOperation");
             scope.Start();
             try
             {
                 using HttpMessage message = CreateAnalyzeDocumentsCancelOperationRequest(jobId, context);
-                return ProtocolOperationHelpers.ProcessMessageWithoutResponseValue(_pipeline, message, ClientDiagnostics, "AnalyzeDocumentsClient.AnalyzeDocumentsCancelOperation", OperationFinalStateVia.OperationLocation, context, waitUntil);
+                return ProtocolOperationHelpers.ProcessMessageWithoutResponseValue(_pipeline, message, ClientDiagnostics, "DocumentAnalysisClient.AnalyzeDocumentsCancelOperation", OperationFinalStateVia.OperationLocation, context, waitUntil);
             }
             catch (Exception e)
             {

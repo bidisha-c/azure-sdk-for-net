@@ -84,7 +84,7 @@ namespace Azure.AI.Language.Documents
                 {
                     case "AbstractiveSummarization": return AbstractiveSummarizationOperationAction.DeserializeAbstractiveSummarizationOperationAction(element, options);
                     case "ExtractiveSummarization": return ExtractiveSummarizationOperationAction.DeserializeExtractiveSummarizationOperationAction(element, options);
-                    case "PiiEntityRecognition": return PiiLROTask.DeserializePiiLROTask(element, options);
+                    case "PiiEntityRecognition": return PiiEntityRecognitionOperationAction.DeserializePiiEntityRecognitionOperationAction(element, options);
                 }
             }
             return UnknownAnalyzeDocumentsOperationAction.DeserializeUnknownAnalyzeDocumentsOperationAction(element, options);

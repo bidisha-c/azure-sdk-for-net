@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.Language.Documents
 {
-    public partial class AnalyzeDocumentsJobState : IUtf8JsonSerializable, IJsonModel<AnalyzeDocumentsJobState>
+    public partial class AnalyzeDocumentsOperationState : IUtf8JsonSerializable, IJsonModel<AnalyzeDocumentsOperationState>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AnalyzeDocumentsJobState>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AnalyzeDocumentsOperationState>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<AnalyzeDocumentsJobState>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<AnalyzeDocumentsOperationState>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +28,10 @@ namespace Azure.AI.Language.Documents
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AnalyzeDocumentsJobState>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AnalyzeDocumentsOperationState>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AnalyzeDocumentsJobState)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(AnalyzeDocumentsOperationState)} does not support writing '{format}' format.");
             }
 
             if (Optional.IsDefined(DisplayName))
@@ -71,7 +71,7 @@ namespace Azure.AI.Language.Documents
                 writer.WriteStringValue(NextLink);
             }
             writer.WritePropertyName("tasks"u8);
-            writer.WriteObjectValue(Tasks, options);
+            writer.WriteObjectValue(Actions, options);
             if (Optional.IsDefined(Statistics))
             {
                 writer.WritePropertyName("statistics"u8);
@@ -94,19 +94,19 @@ namespace Azure.AI.Language.Documents
             }
         }
 
-        AnalyzeDocumentsJobState IJsonModel<AnalyzeDocumentsJobState>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        AnalyzeDocumentsOperationState IJsonModel<AnalyzeDocumentsOperationState>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AnalyzeDocumentsJobState>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AnalyzeDocumentsOperationState>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AnalyzeDocumentsJobState)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(AnalyzeDocumentsOperationState)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAnalyzeDocumentsJobState(document.RootElement, options);
+            return DeserializeAnalyzeDocumentsOperationState(document.RootElement, options);
         }
 
-        internal static AnalyzeDocumentsJobState DeserializeAnalyzeDocumentsJobState(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static AnalyzeDocumentsOperationState DeserializeAnalyzeDocumentsOperationState(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -201,7 +201,7 @@ namespace Azure.AI.Language.Documents
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AnalyzeDocumentsJobState(
+            return new AnalyzeDocumentsOperationState(
                 displayName,
                 createdDateTime,
                 expirationDateTime,
@@ -215,43 +215,43 @@ namespace Azure.AI.Language.Documents
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<AnalyzeDocumentsJobState>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<AnalyzeDocumentsOperationState>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AnalyzeDocumentsJobState>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AnalyzeDocumentsOperationState>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(AnalyzeDocumentsJobState)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AnalyzeDocumentsOperationState)} does not support writing '{options.Format}' format.");
             }
         }
 
-        AnalyzeDocumentsJobState IPersistableModel<AnalyzeDocumentsJobState>.Create(BinaryData data, ModelReaderWriterOptions options)
+        AnalyzeDocumentsOperationState IPersistableModel<AnalyzeDocumentsOperationState>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AnalyzeDocumentsJobState>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AnalyzeDocumentsOperationState>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeAnalyzeDocumentsJobState(document.RootElement, options);
+                        return DeserializeAnalyzeDocumentsOperationState(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AnalyzeDocumentsJobState)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AnalyzeDocumentsOperationState)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<AnalyzeDocumentsJobState>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<AnalyzeDocumentsOperationState>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static AnalyzeDocumentsJobState FromResponse(Response response)
+        internal static AnalyzeDocumentsOperationState FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeAnalyzeDocumentsJobState(document.RootElement);
+            return DeserializeAnalyzeDocumentsOperationState(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

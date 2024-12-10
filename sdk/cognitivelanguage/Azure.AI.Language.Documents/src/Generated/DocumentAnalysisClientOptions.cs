@@ -10,8 +10,8 @@ using Azure.Core;
 
 namespace Azure.AI.Language.Documents
 {
-    /// <summary> Client options for AnalyzeDocumentsClient. </summary>
-    public partial class AnalyzeDocumentsClientOptions : ClientOptions
+    /// <summary> Client options for DocumentAnalysisClient. </summary>
+    public partial class DocumentAnalysisClientOptions : ClientOptions
     {
         private const ServiceVersion LatestVersion = ServiceVersion.V2024_11_15_Preview;
 
@@ -24,8 +24,8 @@ namespace Azure.AI.Language.Documents
 
         internal string Version { get; }
 
-        /// <summary> Initializes new instance of AnalyzeDocumentsClientOptions. </summary>
-        public AnalyzeDocumentsClientOptions(ServiceVersion version = LatestVersion)
+        /// <summary> Initializes new instance of DocumentAnalysisClientOptions. </summary>
+        public DocumentAnalysisClientOptions(ServiceVersion version = LatestVersion)
         {
             Version = version switch
             {

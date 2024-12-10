@@ -13,7 +13,7 @@ namespace Azure.AI.Language.Documents
         /// <summary>
         /// Gets or sets the audience to use for authentication with Azure Active Directory (AAD). The audience is not considered when using a shared key.
         /// </summary>
-        /// <value>If <c>null</c>, <see cref="TextAudience.AzurePublicCloud" /> will be assumed.</value>
-        internal TextAudience? Audience { get; set; }
+        /// <value>If <c>null</c>, <see cref="DocumentsAudience.AzurePublicCloud" /> will be assumed.</value>
+        internal DocumentsAudience? Audience { get; set; }
     }
 }

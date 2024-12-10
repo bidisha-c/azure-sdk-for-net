@@ -59,7 +59,7 @@ namespace Azure.AI.Language.Documents
             {
                 return null;
             }
-            AbstractiveSummarizationResult results = default;
+            AnalyzeDocumentsResult results = default;
             DateTimeOffset lastUpdateDateTime = default;
             DocumentActionState status = default;
             string taskName = default;
@@ -70,7 +70,7 @@ namespace Azure.AI.Language.Documents
             {
                 if (property.NameEquals("results"u8))
                 {
-                    results = AbstractiveSummarizationResult.DeserializeAbstractiveSummarizationResult(property.Value, options);
+                    results = AnalyzeDocumentsResult.DeserializeAnalyzeDocumentsResult(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("lastUpdateDateTime"u8))

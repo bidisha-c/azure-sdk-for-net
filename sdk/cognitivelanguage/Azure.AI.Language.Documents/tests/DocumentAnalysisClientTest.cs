@@ -3,55 +3,51 @@
 
 using System;
 using System.IO;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Azure.Core;
-using Azure.Core.Pipeline;
 using Azure.Core.TestFramework;
 using NUnit.Framework;
 
-namespace Azure.AI.Language.Text.Tests
+namespace Azure.AI.Language.Documents.Tests
 {
-    public class TextAnalysisClientTest : RecordedTestBase<TextAnalysisClientTestEnvironment>
+    public class DocumentAnalysisClientTest : RecordedTestBase<DocumentAnalysisClientTestEnvironment>
     {
-        public TextAnalysisClientTest(bool isAsync) : base(isAsync)
+        public DocumentAnalysisClientTest(bool isAsync) : base(isAsync)
         {
         }
 
         [Test]
-        public void TextAnalysisClientEndpointNull()
+        public void DocumentAnalysisClientEndpointNull()
         {
             ArgumentNullException ex = Assert.Throws<ArgumentNullException>(
-                () => new TextAnalysisClient(null, (AzureKeyCredential)null));
+                () => new DocumentAnalysisClient(null, (AzureKeyCredential)null));
             Assert.AreEqual("endpoint", ex.ParamName);
         }
 
         [Test]
-        public void TextAnalysisClientCredentialNull()
+        public void DocumentAnalysisClientCredentialNull()
         {
             Uri endpoint = new("https://test.cognitive.microsoft.com", UriKind.Absolute);
 
             ArgumentNullException ex = Assert.Throws<ArgumentNullException>(
-                () => new TextAnalysisClient(endpoint, (AzureKeyCredential)null));
+                () => new DocumentAnalysisClient(endpoint, (AzureKeyCredential)null));
             Assert.AreEqual("credential", ex.ParamName);
         }
 
         [Test]
-        public void TextAnalysisClientEndpointNullUsingTokenCredential()
+        public void DocumentAnalysisClientEndpointNullUsingTokenCredential()
         {
             ArgumentNullException ex = Assert.Throws<ArgumentNullException>(
-                () => new TextAnalysisClient(null, (TokenCredential)null));
+                () => new DocumentAnalysisClient(null, (TokenCredential)null));
             Assert.AreEqual("endpoint", ex.ParamName);
         }
 
         [Test]
-        public void TextAnalysisClientCredentialNullUsingTokenCredential()
+        public void DocumentAnalysisClientCredentialNullUsingTokenCredential()
         {
             Uri endpoint = new("https://test.cognitive.microsoft.com", UriKind.Absolute);
 
             ArgumentNullException ex = Assert.Throws<ArgumentNullException>(
-                () => new TextAnalysisClient(endpoint, (TokenCredential)null));
+                () => new DocumentAnalysisClient(endpoint, (TokenCredential)null));
             Assert.AreEqual("credential", ex.ParamName);
         }
 

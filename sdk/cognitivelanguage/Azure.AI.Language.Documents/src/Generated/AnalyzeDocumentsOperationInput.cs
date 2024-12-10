@@ -51,7 +51,7 @@ namespace Azure.AI.Language.Documents
         /// <param name="actions">
         /// List of tasks to be performed as part of the LRO.
         /// Please note <see cref="AnalyzeDocumentsOperationAction"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AbstractiveSummarizationOperationAction"/>, <see cref="ExtractiveSummarizationOperationAction"/> and <see cref="PiiLROTask"/>.
+        /// The available derived classes include <see cref="AbstractiveSummarizationOperationAction"/>, <see cref="ExtractiveSummarizationOperationAction"/> and <see cref="PiiEntityRecognitionOperationAction"/>.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="documentsInput"/> or <paramref name="actions"/> is null. </exception>
         public AnalyzeDocumentsOperationInput(MultiLanguageDocumentInput documentsInput, IEnumerable<AnalyzeDocumentsOperationAction> actions)
@@ -69,7 +69,7 @@ namespace Azure.AI.Language.Documents
         /// <param name="actions">
         /// List of tasks to be performed as part of the LRO.
         /// Please note <see cref="AnalyzeDocumentsOperationAction"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AbstractiveSummarizationOperationAction"/>, <see cref="ExtractiveSummarizationOperationAction"/> and <see cref="PiiLROTask"/>.
+        /// The available derived classes include <see cref="AbstractiveSummarizationOperationAction"/>, <see cref="ExtractiveSummarizationOperationAction"/> and <see cref="PiiEntityRecognitionOperationAction"/>.
         /// </param>
         /// <param name="defaultLanguage"> Default language to use for records. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
@@ -94,7 +94,7 @@ namespace Azure.AI.Language.Documents
         /// <summary>
         /// List of tasks to be performed as part of the LRO.
         /// Please note <see cref="AnalyzeDocumentsOperationAction"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AbstractiveSummarizationOperationAction"/>, <see cref="ExtractiveSummarizationOperationAction"/> and <see cref="PiiLROTask"/>.
+        /// The available derived classes include <see cref="AbstractiveSummarizationOperationAction"/>, <see cref="ExtractiveSummarizationOperationAction"/> and <see cref="PiiEntityRecognitionOperationAction"/>.
         /// </summary>
         public IList<AnalyzeDocumentsOperationAction> Actions { get; }
         /// <summary> Default language to use for records. </summary>

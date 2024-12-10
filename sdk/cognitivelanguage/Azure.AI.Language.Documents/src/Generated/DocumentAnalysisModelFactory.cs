@@ -12,9 +12,9 @@ using System.Linq;
 namespace Azure.AI.Language.Documents
 {
     /// <summary> Model factory for models. </summary>
-    public static partial class AILanguageDocumentsModelFactory
+    public static partial class DocumentAnalysisModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="Documents.AnalyzeDocumentsJobState"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Documents.AnalyzeDocumentsOperationState"/>. </summary>
         /// <param name="displayName"> display name. </param>
         /// <param name="createdAt"> Date and time job created. </param>
         /// <param name="expiresOn"> Date and time job expires. </param>
@@ -23,14 +23,14 @@ namespace Azure.AI.Language.Documents
         /// <param name="status"> status. </param>
         /// <param name="errors"> errors. </param>
         /// <param name="nextLink"> next link. </param>
-        /// <param name="tasks"> List of tasks. </param>
+        /// <param name="actions"> List of tasks. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the request payload. </param>
-        /// <returns> A new <see cref="Documents.AnalyzeDocumentsJobState"/> instance for mocking. </returns>
-        public static AnalyzeDocumentsJobState AnalyzeDocumentsJobState(string displayName = null, DateTimeOffset createdAt = default, DateTimeOffset? expiresOn = null, Guid jobId = default, DateTimeOffset lastUpdatedAt = default, DocumentActionState status = default, IEnumerable<AnalyzeDocumentsError> errors = null, string nextLink = null, DocumentActions tasks = null, RequestStatistics statistics = null)
+        /// <returns> A new <see cref="Documents.AnalyzeDocumentsOperationState"/> instance for mocking. </returns>
+        public static AnalyzeDocumentsOperationState AnalyzeDocumentsOperationState(string displayName = null, DateTimeOffset createdAt = default, DateTimeOffset? expiresOn = null, Guid jobId = default, DateTimeOffset lastUpdatedAt = default, DocumentActionState status = default, IEnumerable<AnalyzeDocumentsError> errors = null, string nextLink = null, DocumentActions actions = null, RequestStatistics statistics = null)
         {
             errors ??= new List<AnalyzeDocumentsError>();
 
-            return new AnalyzeDocumentsJobState(
+            return new AnalyzeDocumentsOperationState(
                 displayName,
                 createdAt,
                 expiresOn,
@@ -39,7 +39,7 @@ namespace Azure.AI.Language.Documents
                 status,
                 errors?.ToList(),
                 nextLink,
-                tasks,
+                actions,
                 statistics,
                 serializedAdditionalRawData: null);
         }
@@ -91,13 +91,13 @@ namespace Azure.AI.Language.Documents
         /// <param name="total"> Count of total tasks. </param>
         /// <param name="items">
         /// Enumerable of Analyze documents job results.
-        /// Please note <see cref="Documents.AnalyzeDocumentsLROResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// Please note <see cref="Documents.AnalyzeDocumentsOperationResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="Documents.AbstractiveSummarizationOperationResult"/>, <see cref="Documents.ExtractiveSummarizationOperationResult"/> and <see cref="Documents.PiiEntityRecognitionOperationResult"/>.
         /// </param>
         /// <returns> A new <see cref="Documents.DocumentActions"/> instance for mocking. </returns>
-        public static DocumentActions DocumentActions(int completed = default, int failed = default, int inProgress = default, int total = default, IEnumerable<AnalyzeDocumentsLROResult> items = null)
+        public static DocumentActions DocumentActions(int completed = default, int failed = default, int inProgress = default, int total = default, IEnumerable<AnalyzeDocumentsOperationResult> items = null)
         {
-            items ??= new List<AnalyzeDocumentsLROResult>();
+            items ??= new List<AnalyzeDocumentsOperationResult>();
 
             return new DocumentActions(
                 completed,
@@ -108,15 +108,15 @@ namespace Azure.AI.Language.Documents
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Documents.AnalyzeDocumentsLROResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Documents.AnalyzeDocumentsOperationResult"/>. </summary>
         /// <param name="lastUpdateDateTime"> The last updated time in UTC for the task. </param>
         /// <param name="status"> The status of the task at the mentioned last update time. </param>
         /// <param name="taskName"> task name. </param>
         /// <param name="kind"> Kind of the task. </param>
-        /// <returns> A new <see cref="Documents.AnalyzeDocumentsLROResult"/> instance for mocking. </returns>
-        public static AnalyzeDocumentsLROResult AnalyzeDocumentsLROResult(DateTimeOffset lastUpdateDateTime = default, DocumentActionState status = default, string taskName = null, string kind = null)
+        /// <returns> A new <see cref="Documents.AnalyzeDocumentsOperationResult"/> instance for mocking. </returns>
+        public static AnalyzeDocumentsOperationResult AnalyzeDocumentsOperationResult(DateTimeOffset lastUpdateDateTime = default, DocumentActionState status = default, string taskName = null, string kind = null)
         {
-            return new UnknownAnalyzeDocumentsLROResult(lastUpdateDateTime, status, taskName, kind == null ? default : new AnalyzeDocumentsOperationResultsKind(kind), serializedAdditionalRawData: null);
+            return new UnknownAnalyzeDocumentsOperationResult(lastUpdateDateTime, status, taskName, kind == null ? default : new AnalyzeDocumentsOperationResultsKind(kind), serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Documents.PiiEntityRecognitionOperationResult"/>. </summary>
@@ -241,7 +241,7 @@ namespace Azure.AI.Language.Documents
         /// <param name="taskName"> task name. </param>
         /// <param name="results"> Results of the task. </param>
         /// <returns> A new <see cref="Documents.AbstractiveSummarizationOperationResult"/> instance for mocking. </returns>
-        public static AbstractiveSummarizationOperationResult AbstractiveSummarizationOperationResult(DateTimeOffset lastUpdateDateTime = default, DocumentActionState status = default, string taskName = null, AbstractiveSummarizationResult results = null)
+        public static AbstractiveSummarizationOperationResult AbstractiveSummarizationOperationResult(DateTimeOffset lastUpdateDateTime = default, DocumentActionState status = default, string taskName = null, AnalyzeDocumentsResult results = null)
         {
             return new AbstractiveSummarizationOperationResult(
                 lastUpdateDateTime,
@@ -252,95 +252,13 @@ namespace Azure.AI.Language.Documents
                 results);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Documents.AbstractiveSummarizationResult"/>. </summary>
-        /// <param name="errors"> Errors by document id. </param>
-        /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the request payload. </param>
-        /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
-        /// <param name="documents"> Response by document. </param>
-        /// <returns> A new <see cref="Documents.AbstractiveSummarizationResult"/> instance for mocking. </returns>
-        public static AbstractiveSummarizationResult AbstractiveSummarizationResult(IEnumerable<DocumentError> errors = null, RequestStatistics statistics = null, string modelVersion = null, IEnumerable<AbstractiveSummaryDocumentResultWithDetectedLanguage> documents = null)
-        {
-            errors ??= new List<DocumentError>();
-            documents ??= new List<AbstractiveSummaryDocumentResultWithDetectedLanguage>();
-
-            return new AbstractiveSummarizationResult(errors?.ToList(), statistics, modelVersion, documents?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Documents.DocumentError"/>. </summary>
-        /// <param name="id"> The ID of the input document. </param>
-        /// <param name="error"> Error encountered. </param>
-        /// <returns> A new <see cref="Documents.DocumentError"/> instance for mocking. </returns>
-        public static DocumentError DocumentError(string id = null, AnalyzeDocumentsError error = null)
-        {
-            return new DocumentError(id, error, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Documents.AbstractiveSummaryDocumentResultWithDetectedLanguage"/>. </summary>
-        /// <param name="id"> Unique, non-empty document identifier. </param>
-        /// <param name="warnings"> Warnings encountered while processing document. </param>
-        /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the document payload. </param>
-        /// <param name="summaries"> A list of abstractive summaries. </param>
-        /// <param name="detectedLanguage"> If 'language' is set to 'auto' for the document in the request this field will contain a 2 letter ISO 639-1 representation of the language detected for this document. </param>
-        /// <returns> A new <see cref="Documents.AbstractiveSummaryDocumentResultWithDetectedLanguage"/> instance for mocking. </returns>
-        public static AbstractiveSummaryDocumentResultWithDetectedLanguage AbstractiveSummaryDocumentResultWithDetectedLanguage(string id = null, IEnumerable<DocumentWarning> warnings = null, DocumentStatistics statistics = null, IEnumerable<AbstractiveSummary> summaries = null, DetectedLanguage detectedLanguage = null)
-        {
-            warnings ??= new List<DocumentWarning>();
-            summaries ??= new List<AbstractiveSummary>();
-
-            return new AbstractiveSummaryDocumentResultWithDetectedLanguage(
-                id,
-                warnings?.ToList(),
-                statistics,
-                summaries?.ToList(),
-                detectedLanguage,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Documents.AbstractiveSummary"/>. </summary>
-        /// <param name="text"> The text of the summary. </param>
-        /// <param name="contexts"> The context list of the summary. </param>
-        /// <returns> A new <see cref="Documents.AbstractiveSummary"/> instance for mocking. </returns>
-        public static AbstractiveSummary AbstractiveSummary(string text = null, IEnumerable<SummaryContext> contexts = null)
-        {
-            contexts ??= new List<SummaryContext>();
-
-            return new AbstractiveSummary(text, contexts?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Documents.SummaryContext"/>. </summary>
-        /// <param name="offset"> Start position for the context. Use of different 'stringIndexType' values can affect the offset returned. </param>
-        /// <param name="length"> The length of the context. Use of different 'stringIndexType' values can affect the length returned. </param>
-        /// <returns> A new <see cref="Documents.SummaryContext"/> instance for mocking. </returns>
-        public static SummaryContext SummaryContext(int offset = default, int length = default)
-        {
-            return new SummaryContext(offset, length, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Documents.DetectedLanguage"/>. </summary>
-        /// <param name="name"> Long name of a detected language (e.g. English, French). </param>
-        /// <param name="iso6391Name"> A two letter representation of the detected language according to the ISO 639-1 standard (e.g. en, fr). </param>
-        /// <param name="confidenceScore"> A confidence score between 0 and 1. Scores close to 1 indicate 100% certainty that the identified language is true. </param>
-        /// <param name="script"> Identifies the script of the input document. </param>
-        /// <param name="scriptCode"> Identifies the script of the input document. </param>
-        /// <returns> A new <see cref="Documents.DetectedLanguage"/> instance for mocking. </returns>
-        public static DetectedLanguage DetectedLanguage(string name = null, string iso6391Name = null, double confidenceScore = default, ScriptKind? script = null, ScriptCode? scriptCode = null)
-        {
-            return new DetectedLanguage(
-                name,
-                iso6391Name,
-                confidenceScore,
-                script,
-                scriptCode,
-                serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Documents.AnalyzeDocumentsOperationInput"/>. </summary>
         /// <param name="displayName"> Name for the task. </param>
         /// <param name="documentsInput"> Contains the input to be analyzed. </param>
         /// <param name="actions">
         /// List of tasks to be performed as part of the LRO.
         /// Please note <see cref="AnalyzeDocumentsOperationAction"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="Documents.AbstractiveSummarizationOperationAction"/>, <see cref="ExtractiveSummarizationOperationAction"/> and <see cref="PiiLROTask"/>.
+        /// The available derived classes include <see cref="Documents.AbstractiveSummarizationOperationAction"/>, <see cref="ExtractiveSummarizationOperationAction"/> and <see cref="PiiEntityRecognitionOperationAction"/>.
         /// </param>
         /// <param name="defaultLanguage"> Default language to use for records. </param>
         /// <returns> A new <see cref="Documents.AnalyzeDocumentsOperationInput"/> instance for mocking. </returns>

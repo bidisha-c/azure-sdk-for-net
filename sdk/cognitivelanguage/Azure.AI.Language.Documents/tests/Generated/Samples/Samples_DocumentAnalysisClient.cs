@@ -14,7 +14,7 @@ using NUnit.Framework;
 
 namespace Azure.AI.Language.Documents.Samples
 {
-    public partial class Samples_AnalyzeDocumentsClient
+    public partial class Samples_DocumentAnalysisClient
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
@@ -22,7 +22,7 @@ namespace Azure.AI.Language.Documents.Samples
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+            DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
             Response response = client.GetAnalyzeDocumentsJobStatus(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"), null, null, null, null);
 
@@ -43,7 +43,7 @@ namespace Azure.AI.Language.Documents.Samples
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+            DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
             Response response = await client.GetAnalyzeDocumentsJobStatusAsync(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"), null, null, null, null);
 
@@ -64,9 +64,9 @@ namespace Azure.AI.Language.Documents.Samples
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+            DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
-            Response<AnalyzeDocumentsJobState> response = client.GetAnalyzeDocumentsJobStatus(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
+            Response<AnalyzeDocumentsOperationState> response = client.GetAnalyzeDocumentsJobStatus(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
         }
 
         [Test]
@@ -75,9 +75,9 @@ namespace Azure.AI.Language.Documents.Samples
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+            DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
-            Response<AnalyzeDocumentsJobState> response = await client.GetAnalyzeDocumentsJobStatusAsync(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
+            Response<AnalyzeDocumentsOperationState> response = await client.GetAnalyzeDocumentsJobStatusAsync(Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace Azure.AI.Language.Documents.Samples
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+            DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -142,7 +142,7 @@ piiCategories = new object[]
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+            DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -198,7 +198,7 @@ piiCategories = new object[]
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+            DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
             AnalyzeDocumentsOperationInput analyzeDocumentOperationInput = new AnalyzeDocumentsOperationInput(new MultiLanguageDocumentInput
             {
@@ -208,7 +208,7 @@ Language = "en",
 }},
             }, new AnalyzeDocumentsOperationAction[]
             {
-new PiiLROTask
+new PiiEntityRecognitionOperationAction
 {
 Parameters = new PiiActionContent
 {
@@ -230,7 +230,7 @@ Name = "Redact PII Task 1",
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+            DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
             AnalyzeDocumentsOperationInput analyzeDocumentOperationInput = new AnalyzeDocumentsOperationInput(new MultiLanguageDocumentInput
             {
@@ -240,7 +240,7 @@ Language = "en",
 }},
             }, new AnalyzeDocumentsOperationAction[]
             {
-new PiiLROTask
+new PiiEntityRecognitionOperationAction
 {
 Parameters = new PiiActionContent
 {
@@ -262,7 +262,7 @@ Name = "Redact PII Task 1",
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+            DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
             Operation operation = client.AnalyzeDocumentsCancelOperation(WaitUntil.Completed, Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
         }
@@ -273,7 +273,7 @@ Name = "Redact PII Task 1",
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            AnalyzeDocumentsClient client = new AnalyzeDocumentsClient(endpoint, credential);
+            DocumentAnalysisClient client = new DocumentAnalysisClient(endpoint, credential);
 
             Operation operation = await client.AnalyzeDocumentsCancelOperationAsync(WaitUntil.Completed, Guid.Parse("c0f2a446-05d9-48fc-ba8f-3ef4af8d0b18"));
         }

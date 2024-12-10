@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.AI.Language.Documents
 {
     /// <summary> The object containing the analyze job LRO job state. </summary>
-    public partial class AnalyzeDocumentsJobState
+    public partial class AnalyzeDocumentsOperationState
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,24 +45,24 @@ namespace Azure.AI.Language.Documents
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsJobState"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsOperationState"/>. </summary>
         /// <param name="createdAt"> Date and time job created. </param>
         /// <param name="lastUpdatedAt"> last updated date and time. </param>
         /// <param name="status"> status. </param>
-        /// <param name="tasks"> List of tasks. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tasks"/> is null. </exception>
-        internal AnalyzeDocumentsJobState(DateTimeOffset createdAt, DateTimeOffset lastUpdatedAt, DocumentActionState status, DocumentActions tasks)
+        /// <param name="actions"> List of tasks. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="actions"/> is null. </exception>
+        internal AnalyzeDocumentsOperationState(DateTimeOffset createdAt, DateTimeOffset lastUpdatedAt, DocumentActionState status, DocumentActions actions)
         {
-            Argument.AssertNotNull(tasks, nameof(tasks));
+            Argument.AssertNotNull(actions, nameof(actions));
 
             CreatedAt = createdAt;
             LastUpdatedAt = lastUpdatedAt;
             Status = status;
             Errors = new ChangeTrackingList<AnalyzeDocumentsError>();
-            Tasks = tasks;
+            Actions = actions;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsJobState"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsOperationState"/>. </summary>
         /// <param name="displayName"> display name. </param>
         /// <param name="createdAt"> Date and time job created. </param>
         /// <param name="expiresOn"> Date and time job expires. </param>
@@ -71,10 +71,10 @@ namespace Azure.AI.Language.Documents
         /// <param name="status"> status. </param>
         /// <param name="errors"> errors. </param>
         /// <param name="nextLink"> next link. </param>
-        /// <param name="tasks"> List of tasks. </param>
+        /// <param name="actions"> List of tasks. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the request payload. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AnalyzeDocumentsJobState(string displayName, DateTimeOffset createdAt, DateTimeOffset? expiresOn, Guid jobId, DateTimeOffset lastUpdatedAt, DocumentActionState status, IReadOnlyList<AnalyzeDocumentsError> errors, string nextLink, DocumentActions tasks, RequestStatistics statistics, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AnalyzeDocumentsOperationState(string displayName, DateTimeOffset createdAt, DateTimeOffset? expiresOn, Guid jobId, DateTimeOffset lastUpdatedAt, DocumentActionState status, IReadOnlyList<AnalyzeDocumentsError> errors, string nextLink, DocumentActions actions, RequestStatistics statistics, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DisplayName = displayName;
             CreatedAt = createdAt;
@@ -84,13 +84,13 @@ namespace Azure.AI.Language.Documents
             Status = status;
             Errors = errors;
             NextLink = nextLink;
-            Tasks = tasks;
+            Actions = actions;
             Statistics = statistics;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsJobState"/> for deserialization. </summary>
-        internal AnalyzeDocumentsJobState()
+        /// <summary> Initializes a new instance of <see cref="AnalyzeDocumentsOperationState"/> for deserialization. </summary>
+        internal AnalyzeDocumentsOperationState()
         {
         }
 
@@ -111,7 +111,7 @@ namespace Azure.AI.Language.Documents
         /// <summary> next link. </summary>
         public string NextLink { get; }
         /// <summary> List of tasks. </summary>
-        public DocumentActions Tasks { get; }
+        public DocumentActions Actions { get; }
         /// <summary> if showStats=true was specified in the request this field will contain information about the request payload. </summary>
         public RequestStatistics Statistics { get; }
     }
