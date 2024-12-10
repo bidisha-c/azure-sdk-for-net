@@ -8,11 +8,12 @@ using Azure.AI.Language.Documents;
 using Azure.AI.Language.Documents.Tests;
 using Azure.Core.TestFramework;
 using NUnit.Framework;
+using System.Collections.Generic;
 #region Snippet:Documents_Identity_Namespace
 using Azure.Identity;
 #endregion
 
-namespace Azure.AI.Language.TextAnalytics.Tests.Samples
+namespace Azure.AI.Language.Documents.Tests.Samples
 {
     public partial class CreateClient : SamplesBase<DocumentAnalysisClientTestEnvironment>
     {
@@ -26,7 +27,7 @@ namespace Azure.AI.Language.TextAnalytics.Tests.Samples
             endpoint = TestEnvironment.Endpoint;
             credential = new(TestEnvironment.ApiKey);
 #endif
-            DocumentAnalysisClientOptions options = new DocumentAnalysisClientOptions(DocumentAnalysisClientOptions.ServiceVersion.V2023_04_01);
+            DocumentAnalysisClientOptions options = new DocumentAnalysisClientOptions(DocumentAnalysisClientOptions.ServiceVersion.V2024_11_15_Preview);
             var client = new DocumentAnalysisClient(endpoint, credential, options);
             #endregion
         }
@@ -68,29 +69,26 @@ namespace Azure.AI.Language.TextAnalytics.Tests.Samples
             #region Snippet:DocumentAnalysisClient_BadRequest
             try
             {
-                string textA =
-                "We love this trail and make the trip every year. The views are breathtaking and well worth the hike!"
-                + " Yesterday was foggy though, so we missed the spectacular views. We tried again today and it was"
-                + " amazing. Everyone in my family liked the trail although it was too challenging for the less"
-                + " athletic among us. Not necessarily recommended for small children. A hotel close to the trail"
-                + " offers services for childcare in case you want that.";
-
-                AnalyzeTextInput body = new TextEntityRecognitionInput()
+                var body = new MultiLanguageDocumentInput()
                 {
-                    TextInput = new MultiLanguageTextInput()
-                    {
-                        MultiLanguageInputs =
-                        {
-                            new MultiLanguageInput("D", textA),
-                        }
-                    },
-                    ActionContent = new EntitiesActionContent()
-                    {
-                        ModelVersion = "NotValid", // Invalid model version will is a bad request.
-                    }
+                    Documents =
+                            {
+                                new MultiLanguageInput("D", null, null),
+                            }
                 };
 
-                Response<AnalyzeTextResult> response = client.AnalyzeText(body);
+                var actions = new List<AnalyzeDocumentsOperationAction>()
+                {
+                    new PiiEntityRecognitionOperationAction()
+                    {
+                        Parameters = new PiiActionContent()
+                        {
+                            ModelVersion = "NotValid", // Invalid model version will is a bad request.
+                        },
+                    },
+                };
+
+                var response = client.AnalyzeDocumentsOperation(body, actions);
             }
             catch (RequestFailedException ex)
             {
