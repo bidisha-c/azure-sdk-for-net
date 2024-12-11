@@ -35,8 +35,11 @@ namespace Azure.AI.Language.Documents
             }
 
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("parameters"u8);
-            writer.WriteObjectValue(ActionContent, options);
+            if (Optional.IsDefined(ActionContent))
+            {
+                writer.WritePropertyName("parameters"u8);
+                writer.WriteObjectValue(ActionContent, options);
+            }
         }
 
         AbstractiveSummarizationOperationAction IJsonModel<AbstractiveSummarizationOperationAction>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -68,6 +71,10 @@ namespace Azure.AI.Language.Documents
             {
                 if (property.NameEquals("parameters"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     parameters = AbstractiveSummarizationActionContent.DeserializeAbstractiveSummarizationActionContent(property.Value, options);
                     continue;
                 }

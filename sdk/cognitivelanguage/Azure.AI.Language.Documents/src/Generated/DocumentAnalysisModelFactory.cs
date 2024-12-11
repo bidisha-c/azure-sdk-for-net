@@ -258,7 +258,7 @@ namespace Azure.AI.Language.Documents
         /// <param name="actions">
         /// List of tasks to be performed as part of the LRO.
         /// Please note <see cref="AnalyzeDocumentsOperationAction"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="Documents.AbstractiveSummarizationOperationAction"/>, <see cref="ExtractiveSummarizationOperationAction"/> and <see cref="PiiEntityRecognitionOperationAction"/>.
+        /// The available derived classes include <see cref="AbstractiveSummarizationOperationAction"/>, <see cref="ExtractiveSummarizationOperationAction"/> and <see cref="PiiEntityRecognitionOperationAction"/>.
         /// </param>
         /// <param name="defaultLanguage"> Default language to use for records. </param>
         /// <returns> A new <see cref="Documents.AnalyzeDocumentsOperationInput"/> instance for mocking. </returns>
@@ -286,15 +286,6 @@ namespace Azure.AI.Language.Documents
         public static MultiLanguageInput MultiLanguageInput(string id = null, DocumentLocation source = null, DocumentLocation target = null, string language = null)
         {
             return new MultiLanguageInput(id, source, target, language, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Documents.AbstractiveSummarizationOperationAction"/>. </summary>
-        /// <param name="name"> task name. </param>
-        /// <param name="actionContent"> Parameters for the Abstractive Summarization task. </param>
-        /// <returns> A new <see cref="Documents.AbstractiveSummarizationOperationAction"/> instance for mocking. </returns>
-        public static AbstractiveSummarizationOperationAction AbstractiveSummarizationOperationAction(string name = null, AbstractiveSummarizationActionContent actionContent = null)
-        {
-            return new AbstractiveSummarizationOperationAction(name, AnalyzeDocumentsOperationActionKind.AbstractiveSummarization, serializedAdditionalRawData: null, actionContent);
         }
     }
 }

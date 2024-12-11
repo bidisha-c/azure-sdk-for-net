@@ -14,14 +14,9 @@ namespace Azure.AI.Language.Documents
     public partial class AbstractiveSummarizationOperationAction : AnalyzeDocumentsOperationAction
     {
         /// <summary> Initializes a new instance of <see cref="AbstractiveSummarizationOperationAction"/>. </summary>
-        /// <param name="actionContent"> Parameters for the Abstractive Summarization task. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="actionContent"/> is null. </exception>
-        public AbstractiveSummarizationOperationAction(AbstractiveSummarizationActionContent actionContent)
+        public AbstractiveSummarizationOperationAction()
         {
-            Argument.AssertNotNull(actionContent, nameof(actionContent));
-
             Kind = AnalyzeDocumentsOperationActionKind.AbstractiveSummarization;
-            ActionContent = actionContent;
         }
 
         /// <summary> Initializes a new instance of <see cref="AbstractiveSummarizationOperationAction"/>. </summary>
@@ -34,12 +29,7 @@ namespace Azure.AI.Language.Documents
             ActionContent = actionContent;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AbstractiveSummarizationOperationAction"/> for deserialization. </summary>
-        internal AbstractiveSummarizationOperationAction()
-        {
-        }
-
         /// <summary> Parameters for the Abstractive Summarization task. </summary>
-        public AbstractiveSummarizationActionContent ActionContent { get; }
+        public AbstractiveSummarizationActionContent ActionContent { get; set; }
     }
 }
